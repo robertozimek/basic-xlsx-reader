@@ -4,6 +4,7 @@ version = "0.2.3"
 edition = "2021"
 authors = ["Robert Ozimek <robertozimek90@gmail.com>"]
 repository = "https://github.com/robertozimek/basic-xlsx-reader"
+keywords = ["excel", "excel-reader", "xlsx", "xlsx-reader", "read-xlsx"]
 
 [lib]
 crate-type = ["cdylib"]
