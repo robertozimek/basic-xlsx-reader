@@ -1,7 +1,7 @@
 rust-wasm binding that uses calamine to read XLSX files
 
 ```typescript
-import init, {BasicXLSXReader} from "./basic_xlsx_reader";
+import init, {BasicXLSXReader} from 'basic-xlsx-reader';
 
 const readFileAsUInt8Array = (file: File): Int8Array => {
     return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ const readFileAsUInt8Array = (file: File): Int8Array => {
     });
 };
 
-async () => {
+(async () => {
     await init();
     const input = document.querySelector('input[type=file]');
     const fileUint8Array = await readFileAsUInt8Array([input.files]);
@@ -26,9 +26,11 @@ async () => {
         sheet: {name: "Test Sheet"}, // omit to get all sheets
         includeEmptyCells: true,
     });
-};
 
-console.log(output);
+    console.log(output);
+})();
+
+;
 
 /*
 {
