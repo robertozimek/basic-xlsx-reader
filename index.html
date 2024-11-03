@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>hello-wasm example</title>
+</head>
+<body>
+<input type="file"/>
+<br/>
+<pre></pre>
+<script type="module">
+    import init, {BasicXLSXReader} from "./pkg/basic_xlsx_reader.js";
+
+    const readFileAsUInt8Array = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const data = reader.result;
+                const array = new Int8Array(data);
+                resolve(array);
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    };
+
+    (async () => {
+        await init();
+        const code = document.querySelector('pre');
+        document.querySelector('input[type=file]').addEventListener('change', async (event) => {
+            const [file] = event.target.files;
+            const data = await readFileAsUInt8Array(file);
+            const xlsxReader = new BasicXLSXReader(data);
+            const output = xlsxReader.read({
+                includeEmptyCells: true
+            });
+            code.innerHTML = JSON.stringify(output, null, 2);
+
+        });
+    })();
+</script>
+</body>
+</html>
