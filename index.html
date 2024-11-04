@@ -2,14 +2,14 @@
 <html lang="en-US">
 <head>
     <meta charset="utf-8"/>
-    <title>hello-wasm example</title>
+    <title>Example</title>
 </head>
 <body>
 <input type="file"/>
 <br/>
 <pre></pre>
 <script type="module">
-    import init, {BasicXLSXReader} from "./pkg/basic_xlsx_reader.js";
+    import init, {BasicXLSXReader} from "./pkg";
 
     const readFileAsUInt8Array = (file) => {
         return new Promise((resolve, reject) => {
@@ -35,7 +35,6 @@
                 includeEmptyCells: true
             });
             code.innerHTML = JSON.stringify(output, null, 2);
-
         });
     })();
 </script>
