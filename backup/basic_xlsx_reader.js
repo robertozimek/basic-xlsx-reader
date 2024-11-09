@@ -16,16 +16,16 @@ const cachedTextEncoder = (typeof TextEncoder !== 'undefined' ? new TextEncoder(
 
 const encodeString = (typeof cachedTextEncoder.encodeInto === 'function'
     ? function (arg, view) {
-        return cachedTextEncoder.encodeInto(arg, view);
-    }
+    return cachedTextEncoder.encodeInto(arg, view);
+}
     : function (arg, view) {
-        const buf = cachedTextEncoder.encode(arg);
-        view.set(buf);
-        return {
-            read: arg.length,
-            written: buf.length
-        };
-    });
+    const buf = cachedTextEncoder.encode(arg);
+    view.set(buf);
+    return {
+        read: arg.length,
+        written: buf.length
+    };
+});
 
 function passStringToWasm0(arg, malloc, realloc) {
 
@@ -304,8 +304,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (typeof module_or_path === 'undefined') {
-        const wasmPath = typeof window === 'undefined' ? 'node-wasm/basic_xlsx_reader_bg.wasm' : 'basic_xlsx_reader_bg.wasm';
-        module_or_path = new URL(wasmPath, import.meta.url);
+        module_or_path = new URL('basic_xlsx_reader_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
@@ -314,9 +313,7 @@ async function __wbg_init(module_or_path) {
             const fs = await import('fs');
             const bytes = fs.readFileSync(module_or_path.pathname);
             const wasmModule = new WebAssembly.Module(bytes);
-            const newImport = {};
-            newImport['__wbindgen_placeholder__'] = imports.wbg;
-            const wasmInstance = new WebAssembly.Instance(wasmModule, newImport);
+            const wasmInstance = new WebAssembly.Instance(wasmModule, imports);
             return __wbg_finalize_init(wasmInstance, wasmModule);
         } else {
             module_or_path = fetch(module_or_path);
