@@ -19,7 +19,7 @@ dependencies = [
 
 [[package]]
 name = "basic-xlsx-reader"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "bytes",
  "calamine",
